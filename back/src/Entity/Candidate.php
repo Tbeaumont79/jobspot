@@ -16,11 +16,11 @@ class Candidate
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, nullable: true)]
     private ?string $cv = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $skills = [];
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private string $skills = '';
 
     #[ORM\Column(nullable: true)]
     private ?int $years_of_experience = null;
@@ -59,12 +59,12 @@ class Candidate
         return $this;
     }
 
-    public function getSkills(): array
+    public function getSkills(): string
     {
         return $this->skills;
     }
 
-    public function setSkills(array $skills): static
+    public function setSkills(string $skills): static
     {
         $this->skills = $skills;
 
