@@ -4,5 +4,6 @@ clean:
 
 install:
 	symfony composer install
-	symfony console doctrine:migrations:migrate
+	symfony console d:m:c
+	symfony console d:m:m
 	symfony console doctrine:fixtures:load
