@@ -9,8 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
-use ApiPlatform\Metadata\Delete;
+use App\Enum\StatusEnum;
 
 #[ORM\Entity(repositoryClass: ApplyRepository::class)]
 #[ApiResource]
@@ -32,8 +31,8 @@ class Apply
     private ?\DateTimeImmutable $created_at = null;
 
     #[Groups(['apply:read', 'apply:write'])]
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'string', enumType: StatusEnum::class)]
+    private StatusEnum $status;
 
     #[Groups(['apply:read', 'apply:write'])]
     #[ORM\ManyToOne(inversedBy: 'applies')]
@@ -80,12 +79,12 @@ class Apply
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?StatusEnum
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(StatusEnum $status): static
     {
         $this->status = $status;
 

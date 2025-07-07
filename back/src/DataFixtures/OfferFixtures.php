@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Offer;
 use App\Entity\Company;
 use App\Entity\Tag;
+use App\Enum\StatusEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -20,7 +21,7 @@ class OfferFixtures extends Fixture implements DependentFixtureInterface
         $offer->setContractType('CDI');
         $offer->setSalary('100000');
         $offer->setCreatedAt(new \DateTimeImmutable('now'));
-        $offer->setStatus('active');
+        $offer->setStatus(StatusEnum::PENDING);
         $offer->setCompany($company);
 
         $tagNames = ['php', 'symfony', 'laravel', 'react', 'vue', 'angular', 'node', 'python', 'java', 'c#', 'c++', 'c'];

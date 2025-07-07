@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\StatusEnum;
 use App\Repository\OfferRepository;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,10 +39,6 @@ class Offer
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[Groups(['offer:read'])]
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
-
     /**
      * @var Collection<int, tag>
      */
@@ -59,6 +56,10 @@ class Offer
     #[Groups(['offer:read'])]
     #[ORM\OneToMany(targetEntity: Apply::class, mappedBy: 'offer')]
     private Collection $applies;
+
+    #[Groups(['offer:read'])]
+    #[ORM\Column(type: 'string', enumType: StatusEnum::class)]
+    private StatusEnum $status;
 
     public function __construct()
     {
@@ -131,18 +132,6 @@ class Offer
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, tag>
      */
@@ -206,6 +195,17 @@ class Offer
             }
         }
 
+        return $this;
+    }
+    
+    public function getStatus(): ?StatusEnum
+    {
+        return $this->status;
+    }
+
+    public function setStatus(StatusEnum $status): static
+    {
+        $this->status = $status;
         return $this;
     }
 }
