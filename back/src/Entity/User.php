@@ -9,10 +9,21 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Metadata\Get;
+use App\Controller\MeController;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['read_user']],
+    denormalizationContext: ['groups' => ['write_user']],
+)]
+#[Get(
+    uriTemplate: '/me',
+    security: 'is_granted("ROLE_CANDIDATE") or is_granted("ROLE_COMPANY")',
+    read: false,
+    controller: MeController::class,
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[ApiResource]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -35,7 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[Groups(['user:read', 'user:write'])]
     #[ORM\Column]
     #[Assert\NotBlank]
     #[Assert\Length(min: 8)]
