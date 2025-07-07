@@ -13,8 +13,8 @@ use ApiPlatform\Metadata\Get;
 use App\Controller\MeController;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['read_user']],
-    denormalizationContext: ['groups' => ['write_user']],
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']],
 )]
 #[Get(
     uriTemplate: '/me',
