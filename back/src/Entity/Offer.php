@@ -6,6 +6,7 @@ use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 class Offer
@@ -15,36 +16,45 @@ class Offer
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['offer:read'])]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Groups(['offer:read'])]
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[Groups(['offer:read'])]
     #[ORM\Column(length: 255)]
     private ?string $contractType = null;
 
+    #[Groups(['offer:read'])]
     #[ORM\Column(length: 255)]
     private ?string $salary = null;
 
+    #[Groups(['offer:read'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[Groups(['offer:read'])]
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
     /**
      * @var Collection<int, tag>
      */
+    #[Groups(['offer:read'])]
     #[ORM\ManyToMany(targetEntity: tag::class, inversedBy: 'offers')]
     private Collection $tags;
 
+    #[Groups(['offer:read'])]
     #[ORM\ManyToOne(inversedBy: 'offers')]
     private ?company $company = null;
 
     /**
      * @var Collection<int, Apply>
      */
+    #[Groups(['offer:read'])]
     #[ORM\OneToMany(targetEntity: Apply::class, mappedBy: 'offer')]
     private Collection $applies;
 
