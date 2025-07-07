@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
+#[ApiResource]
 class Company
 {
     #[ORM\Id]
@@ -15,21 +18,26 @@ class Company
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['company:read', 'company:write'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['company:read', 'company:write'])]
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[Groups(['company:read', 'company:write'])]
     #[ORM\ManyToOne(inversedBy: 'companies')]
     private ?sector $sector = null;
 
+    #[Groups(['company:read', 'company:write'])]
     /**
      * @var Collection<int, user>
      */
     #[ORM\OneToMany(targetEntity: user::class, mappedBy: 'company')]
     private Collection $user;
 
+    #[Groups(['company:read', 'company:write'])]
     /**
      * @var Collection<int, Offer>
      */

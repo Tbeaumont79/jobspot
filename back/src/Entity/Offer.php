@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
+#[ApiResource]
 class Offer
 {
     #[ORM\Id]

@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CandidateRepository::class)]
+#[ApiResource]
 class Candidate
 {
     #[ORM\Id]
@@ -16,18 +19,23 @@ class Candidate
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['candidate:read', 'candidate:write'])]
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $cv = null;
 
+    #[Groups(['candidate:read', 'candidate:write'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private string $skills = '';
 
+    #[Groups(['candidate:read', 'candidate:write'])]
     #[ORM\Column(nullable: true)]
     private ?int $years_of_experience = null;
 
+    #[Groups(['candidate:read', 'candidate:write'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $available_at = null;
 
+    #[Groups(['candidate:read', 'candidate:write'])]
     /**
      * @var Collection<int, user>
      */

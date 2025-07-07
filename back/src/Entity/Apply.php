@@ -3,11 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\ApplyRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ApplyRepository::class)]
+#[ApiResource]
+#[Groups(['apply:read', 'apply:write'])]
 class Apply
 {
     #[ORM\Id]
@@ -15,18 +19,23 @@ class Apply
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['apply:read', 'apply:write'])]
     #[ORM\Column(length: 255)]
     private ?string $message = null;
 
+    #[Groups(['apply:read', 'apply:write'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[Groups(['apply:read', 'apply:write'])]
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[Groups(['apply:read', 'apply:write'])]
     #[ORM\ManyToOne(inversedBy: 'applies')]
     private ?offer $offer = null;
 
+    #[Groups(['apply:read', 'apply:write'])]
     /**
      * @var Collection<int, candidate>
      */

@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\TagRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ApiResource]
 class Tag
 {
     #[ORM\Id]
@@ -15,12 +18,14 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['tag:read', 'tag:write'])]
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
     /**
      * @var Collection<int, Offer>
      */
+    #[Groups(['tag:read', 'tag:write'])]
     #[ORM\ManyToMany(targetEntity: Offer::class, mappedBy: 'tags')]
     private Collection $offers;
 
