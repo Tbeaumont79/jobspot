@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -21,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['user:read', 'user:write'])]
     #[ORM\Column(length: 180)]
+    #[Assert\Email]
     private ?string $email = null;
 
     /**
@@ -35,6 +37,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[Groups(['user:read', 'user:write'])]
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8)]
+    #[Assert\Regex(pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', message: 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial')]
+    #[Assert\NotCompromisedPassword]
     private ?string $password = null;
 
     #[Groups(['user:read'])]

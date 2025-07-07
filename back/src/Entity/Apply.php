@@ -8,10 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: ApplyRepository::class)]
 #[ApiResource]
 #[Groups(['apply:read', 'apply:write'])]
+#[Post(security: "is_granted('ROLE_CANDIDATE')")]
 class Apply
 {
     #[ORM\Id]

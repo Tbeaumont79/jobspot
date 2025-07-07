@@ -9,9 +9,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
 
 #[ORM\Entity(repositoryClass: CandidateRepository::class)]
 #[ApiResource]
+#[Put(security: "is_granted('ROLE_CANDIDATE') or is_granted('ROLE_ADMIN')")]
+#[Delete(security: "is_granted('ROLE_CANDIDATE') or is_granted('ROLE_ADMIN')")]
 class Candidate
 {
     #[ORM\Id]
