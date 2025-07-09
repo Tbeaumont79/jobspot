@@ -28,11 +28,9 @@
       <div class="form-control w-full">
         <label class="label pb-2" for="email">
           <span class="label-text">Email</span>
-          <span
-            class="label-text-alt text-error"
-            *ngIf="isFieldInvalid('email')"
-            >*</span
-          >
+          @if (isFieldInvalid('email')) {
+          <span class="label-text-alt text-error">*</span>
+          }
         </label>
         <input
           id="email"
@@ -64,6 +62,8 @@
         <label class="label pb-2" for="password">
           <span class="label-text">Mot de passe</span>
           @if (isFieldInvalid('password')) {
+          <span class="label-text-alt text-error">*</span>
+          } @if (isFieldInvalid('password')) {
           <span class="label-text-alt text-error">*</span>
           }
         </label>
@@ -120,7 +120,7 @@
         <div>
           <span>Vous n'avez pas de compte ? </span>
           <a
-            href="#"
+            href="/register"
             class="link link-hover text-primary font-semibold"
             aria-label="Créer un nouveau compte utilisateur"
           >

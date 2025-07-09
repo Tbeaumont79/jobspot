@@ -1,0 +1,121 @@
+<div class="flex min-h-screen">
+  <div
+    class="w-1/2 bg-cover bg-center"
+    style="
+      background-image: url('https://plus.unsplash.com/premium_photo-1677020780681-b563ec0997cb?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    "
+    role="img"
+    aria-label="Image de fond représentant un paysage de montagne"
+  ></div>
+
+  <div class="w-1/2 flex flex-col items-center justify-center bg-base-200">
+    <h1 class="text-3xl font-bold text-center mb-6">JobSpot</h1>
+    <h2 class="text-2xl font-bold text-center mb-6 text-secondary">
+      Notre job facilite votre recherche d'emploi
+    </h2>
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="w-full max-w-xl p-8 rounded-lg shadow-lg bg-base-100 space-y-6"
+      role="form"
+      aria-labelledby="register-title"
+      novalidate
+    >
+      <h2 id="register-title" class="text-3xl font-bold text-center mb-6">
+        Créer un compte
+      </h2>
+      <div class="form-control w-full">
+        <label class="label pb-2" for="email">
+          <span class="label-text">Email</span>
+        </label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          placeholder="exemple@email.com"
+          class="input input-bordered w-full"
+          [class.input-error]="isFieldInvalid('email')"
+          [class.input-success]="isFieldValid('email')"
+          autocomplete="email"
+          aria-describedby="email-error email-help"
+          [attr.aria-invalid]="isFieldInvalid('email')"
+        />
+        @if (isFieldInvalid('email')) {
+        <div class="label">
+          <span id="email-error" class="label-text-alt text-error pt-2">
+            {{ getFieldError('email') }}
+          </span>
+        </div>
+        }
+      </div>
+      <div class="form-control w-full">
+        <label class="label pb-2" for="role">
+          <span class="label-text">Rôle</span>
+          @if (isFieldInvalid('role')) {
+          <span class="label-text-alt text-error">*</span>
+          }
+        </label>
+        <select
+          id="role"
+          formControlName="role"
+          class="select select-bordered w-full"
+          [class.select-error]="isFieldInvalid('role')"
+          [class.select-success]="isFieldValid('role')"
+          [attr.aria-invalid]="isFieldInvalid('role')"
+          aria-describedby="role-error role-help"
+        >
+          <option value="">Sélectionnez un rôle</option>
+          <option value="candidate">Candidat</option>
+          <option value="recruiter">Recruteur</option>
+        </select>
+        @if (isFieldInvalid('role')) {
+        <div class="label">
+          <span id="role-error" class="label-text-alt text-error pt-2">
+            {{ getFieldError('role') }}
+          </span>
+        </div>
+        }
+      </div>
+      <div class="form-control w-full">
+        <label class="label pb-2" for="password">
+          <span class="label-text">Mot de passe</span>
+          @if (isFieldInvalid('password')) {
+          <span class="label-text-alt text-error">*</span>
+          }
+        </label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="********"
+          class="input input-bordered w-full"
+          [class.input-error]="isFieldInvalid('password')"
+          [class.input-success]="isFieldValid('password')"
+          autocomplete="new-password"
+          aria-describedby="password-error password-help"
+          [attr.aria-invalid]="isFieldInvalid('password')"
+          minlength="8"
+        />
+        @if (isFieldInvalid('password')) {
+        <div class="label">
+          <span id="password-error" class="label-text-alt text-error pt-2">
+            {{ getFieldError('password') }}
+          </span>
+        </div>
+        }
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary w-full"
+        [disabled]="registerForm.invalid"
+        [class.btn-disabled]="registerForm.invalid"
+      >
+        S'inscrire
+      </button>
+      <p class="text-center text-sm">
+        Vous avez déjà un compte ?
+        <a href="/login" class="text-primary">Connectez-vous</a>
+      </p>
+    </form>
+  </div>
+</div>
