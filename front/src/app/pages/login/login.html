@@ -1,0 +1,152 @@
+<div class="flex min-h-screen">
+  <div
+    class="w-1/2 bg-cover bg-center"
+    style="
+      background-image: url('https://plus.unsplash.com/premium_photo-1677020780681-b563ec0997cb?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    "
+    role="img"
+    aria-label="Image de fond représentant un paysage de montagne"
+  ></div>
+
+  <div class="w-1/2 flex flex-col items-center justify-center bg-base-200">
+    <h1 class="text-3xl font-bold text-center mb-6">JobSpot</h1>
+    <h2 class="text-2xl font-bold text-center mb-6 text-secondary">
+      Notre job facilite votre recherche d'emploi
+    </h2>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      class="w-full max-w-xl p-8 rounded-lg shadow-lg bg-base-100 space-y-6"
+      role="form"
+      aria-labelledby="login-title"
+      novalidate
+    >
+      <h2 id="login-title" class="text-3xl font-bold text-center mb-6">
+        Connexion
+      </h2>
+
+      <div class="form-control w-full">
+        <label class="label pb-2" for="email">
+          <span class="label-text">Email</span>
+          <span
+            class="label-text-alt text-error"
+            *ngIf="isFieldInvalid('email')"
+            >*</span
+          >
+        </label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          placeholder="exemple@email.com"
+          class="input input-bordered w-full"
+          [class.input-error]="isFieldInvalid('email')"
+          [class.input-success]="isFieldValid('email')"
+          autocomplete="email"
+          aria-describedby="email-error email-help"
+          [attr.aria-invalid]="isFieldInvalid('email')"
+        />
+
+        <div class="label">
+          <span
+            id="email-error"
+            class="label-text-alt text-error pt-2"
+            [class.hidden]="!getFieldError('email')"
+            role="alert"
+            aria-live="polite"
+          >
+            {{ getFieldError('email') }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-control w-full">
+        <label class="label pb-2" for="password">
+          <span class="label-text">Mot de passe</span>
+          @if (isFieldInvalid('password')) {
+          <span class="label-text-alt text-error">*</span>
+          }
+        </label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="Votre mot de passe"
+          class="input input-bordered w-full"
+          [class.input-error]="isFieldInvalid('password')"
+          [class.input-success]="isFieldValid('password')"
+          autocomplete="current-password"
+          aria-describedby="password-error password-help"
+          [attr.aria-invalid]="isFieldInvalid('password')"
+        />
+
+        <div class="label flex flex-col justify-start items-start">
+          <div class="flex flex-col">
+            <span
+              id="password-error"
+              class="label-text-alt text-error pt-2"
+              [class.hidden]="!getFieldError('password')"
+              role="alert"
+              aria-live="polite"
+            >
+              {{ getFieldError('password') }}
+            </span>
+          </div>
+          <a
+            href="#"
+            class="label-text-alt link link-hover text-primary"
+            aria-label="Lien pour récupérer votre mot de passe oublié"
+          >
+            Mot de passe oublié ?
+          </a>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-full"
+        [disabled]="loginForm.invalid"
+        [class.loading]="false"
+        aria-describedby="login-title"
+      >
+        @if (!false) {
+        <span>Se connecter</span>
+        } @if (false) {
+        <span>Connexion en cours...</span>
+        }
+      </button>
+
+      <div class="text-center space-y-2">
+        <div>
+          <span>Vous n'avez pas de compte ? </span>
+          <a
+            href="#"
+            class="link link-hover text-primary font-semibold"
+            aria-label="Créer un nouveau compte utilisateur"
+          >
+            Créer un compte
+          </a>
+        </div>
+      </div>
+
+      @if (false) {
+      <div class="mt-4 p-4 bg-base-300 rounded text-sm space-y-2">
+        <p><strong>Statut du formulaire :</strong> {{ loginForm.status }}</p>
+        <p><strong>Formulaire valide :</strong> {{ loginForm.valid }}</p>
+        <p><strong>Valeurs :</strong></p>
+        <pre class="text-xs bg-base-100 p-2 rounded">
+{{ loginForm.value | json }}</pre
+        >
+        <p><strong>Erreurs :</strong></p>
+        <ul class="text-xs">
+          @if (email?.errors) {
+          <li><strong>Email:</strong> {{ email?.errors | json }}</li>
+          } @if (password?.errors) {
+          <li><strong>Password:</strong> {{ password?.errors | json }}</li>
+          }
+        </ul>
+      </div>
+      }
+    </form>
+  </div>
+</div>
