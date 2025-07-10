@@ -6,7 +6,7 @@ import { Register } from './pages/register/register';
 export const routes: Routes = [
   {
     path: '',
-    component: Login,
+    component: Home,
   },
   {
     path: 'register',

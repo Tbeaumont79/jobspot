@@ -7,6 +7,8 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { CommonModule, JsonPipe } from '@angular/common';
+import { Login as LoginService } from '../../core/services/login/login';
+import { Router } from '@angular/router';
 
 interface LoginForm {
   email: string;
@@ -20,10 +22,11 @@ interface LoginForm {
 })
 export class Login {
   private formBuilder = inject(FormBuilder);
-
+  private loginService = inject(LoginService);
+  private router = inject(Router);
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required]],
   });
 
   onSubmit(): void {
@@ -40,6 +43,15 @@ export class Login {
 
   private handleSuccessfulLogin(credentials: LoginForm): void {
     console.log('Processing login for:', credentials.email);
+    this.loginService.login(credentials.email, credentials.password).subscribe({
+      next: (user) => {
+        console.log('Login successful:', user);
+        this.router.navigate(['']);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
   }
 
   private markAllFieldsAsTouched(): void {
@@ -70,10 +82,6 @@ export class Login {
       }
       if (field.errors['email']) {
         return 'Veuillez entrer une adresse email valide.';
-      }
-      if (field.errors['minlength']) {
-        const requiredLength = field.errors['minlength'].requiredLength;
-        return `Le mot de passe doit contenir au moins ${requiredLength} caractères.`;
       }
     }
 
