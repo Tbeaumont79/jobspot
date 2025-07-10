@@ -7,7 +7,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { Login as LoginService } from '../../core/services/login/login';
+import { AuthenticationService } from '../../core/services/auth/authentication';
 import { Router } from '@angular/router';
 
 interface LoginForm {
@@ -22,7 +22,7 @@ interface LoginForm {
 })
 export class Login {
   private formBuilder = inject(FormBuilder);
-  private loginService = inject(LoginService);
+  private authenticationService = inject(AuthenticationService);
   private router = inject(Router);
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -33,7 +33,6 @@ export class Login {
     if (this.loginForm.valid) {
       const formValue: LoginForm = this.loginForm.value;
       console.log('Form submitted:', formValue);
-      // TODO: Implement authentication logic
       this.handleSuccessfulLogin(formValue);
     } else {
       console.warn('Form is invalid');
@@ -43,9 +42,9 @@ export class Login {
 
   private handleSuccessfulLogin(credentials: LoginForm): void {
     console.log('Processing login for:', credentials.email);
-    this.loginService.login(credentials.email, credentials.password).subscribe({
-      next: (user) => {
-        console.log('Login successful:', user);
+    this.authenticationService.login(credentials).subscribe({
+      next: (response) => {
+        console.log('Login successful:', response);
         this.router.navigate(['']);
       },
       error: (error) => {
