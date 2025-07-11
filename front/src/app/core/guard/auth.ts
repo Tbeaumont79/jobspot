@@ -1,24 +1,19 @@
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { map, tap } from 'rxjs';
-import { TokenService } from '../services/token/token';
+import { map, Observable, of } from 'rxjs';
 import { AuthStateService } from '../services/auth/auth-state';
 
-export const authGuard: CanActivateFn = () => {
-  const tokenService = inject(TokenService);
+export const authGuard: CanActivateFn = (): Observable<boolean> | boolean => {
   const authStateService = inject(AuthStateService);
   const router = inject(Router);
 
-  if (!tokenService.hasValidToken()) {
-    router.navigate(['/login']);
-    return false;
-  }
-
   return authStateService.getAuthState().pipe(
-    map((state) => state.isAuthenticated),
-    tap((isAuthenticated) => {
-      if (!isAuthenticated && !tokenService.hasValidToken()) {
+    map((state) => {
+      if (state.isAuthenticated) {
+        return true;
+      } else {
         router.navigate(['/login']);
+        return false;
       }
     })
   );
