@@ -16,16 +16,17 @@ export class AuthenticationService {
   private readonly authStateService = inject(AuthStateService);
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${environment.apiUrl}/auth`, credentials, {
-        headers: { 'Content-Type': 'application/ld+json' },
+    return this.http.post<AuthResponse>(
+      `${environment.apiUrl}/auth`,
+      credentials,
+      {
         withCredentials: true,
+      }
+    ).pipe(
+      tap(() => {
+        this.authStateService.setAuthenticated();
       })
-      .pipe(
-        tap((response) => {
-          this.authStateService.setAuthenticated(response.user);
-        })
-      );
+    );
   }
 
   logout(): Observable<void> {

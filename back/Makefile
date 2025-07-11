@@ -1,5 +1,5 @@
 clean:
-	rm -rf /var/cache
+	rm -rf ./var/cache
 	symfony console cache:clear
 
 install:

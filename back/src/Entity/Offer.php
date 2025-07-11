@@ -40,15 +40,15 @@ class Offer
     private ?\DateTimeImmutable $created_at = null;
 
     /**
-     * @var Collection<int, tag>
+     * @var Collection<int, Tag>
      */
     #[Groups(['offer:read'])]
-    #[ORM\ManyToMany(targetEntity: tag::class, inversedBy: 'offers')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'offers')]
     private Collection $tags;
 
     #[Groups(['offer:read'])]
     #[ORM\ManyToOne(inversedBy: 'offers')]
-    private ?company $company = null;
+    private ?Company $company = null;
 
     /**
      * @var Collection<int, Apply>
@@ -133,14 +133,14 @@ class Offer
     }
 
     /**
-     * @return Collection<int, tag>
+     * @return Collection<int, Tag>
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function addTag(tag $tag): static
+    public function addTag(Tag $tag): static
     {
         if (!$this->tags->contains($tag)) {
             $this->tags->add($tag);
@@ -149,19 +149,19 @@ class Offer
         return $this;
     }
 
-    public function removeTag(tag $tag): static
+    public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
 
         return $this;
     }
 
-    public function getCompany(): ?company
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
 
-    public function setCompany(?company $company): static
+    public function setCompany(?Company $company): static
     {
         $this->company = $company;
 
@@ -197,7 +197,7 @@ class Offer
 
         return $this;
     }
-    
+
     public function getStatus(): ?StatusEnum
     {
         return $this->status;

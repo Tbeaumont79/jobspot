@@ -44,7 +44,6 @@ export class Login {
     console.log('Processing login for:', credentials.email);
     this.authenticationService.login(credentials).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
         this.router.navigate(['']);
       },
       error: (error) => {

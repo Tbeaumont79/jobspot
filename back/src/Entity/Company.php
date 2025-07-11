@@ -28,13 +28,13 @@ class Company
 
     #[Groups(['company:read', 'company:write'])]
     #[ORM\ManyToOne(inversedBy: 'companies')]
-    private ?sector $sector = null;
+    private ?Sector $sector = null;
 
     #[Groups(['company:read', 'company:write'])]
     /**
-     * @var Collection<int, user>
+     * @var Collection<int, User>
      */
-    #[ORM\OneToMany(targetEntity: user::class, mappedBy: 'company')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'company')]
     private Collection $user;
 
     #[Groups(['company:read', 'company:write'])]
@@ -79,12 +79,12 @@ class Company
         return $this;
     }
 
-    public function getSector(): ?sector
+    public function getSector(): ?Sector
     {
         return $this->sector;
     }
 
-    public function setSector(?sector $sector): static
+    public function setSector(?Sector $sector): static
     {
         $this->sector = $sector;
 
@@ -92,14 +92,14 @@ class Company
     }
 
     /**
-     * @return Collection<int, user>
+     * @return Collection<int, User>
      */
     public function getUser(): Collection
     {
         return $this->user;
     }
 
-    public function addUser(user $user): static
+    public function addUser(User $user): static
     {
         if (!$this->user->contains($user)) {
             $this->user->add($user);
@@ -109,7 +109,7 @@ class Company
         return $this;
     }
 
-    public function removeUser(user $user): static
+    public function removeUser(User $user): static
     {
         if ($this->user->removeElement($user)) {
             // set the owning side to null (unless already changed)

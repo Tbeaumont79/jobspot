@@ -9,24 +9,23 @@ import { User } from '../../shared/types/user';
 export class AuthStateService {
   private readonly authState$ = new BehaviorSubject<AuthState>({
     isAuthenticated: false,
-    user: null,
+    user: undefined,
   });
 
   getAuthState(): Observable<AuthState> {
     return this.authState$.asObservable();
   }
 
-  setAuthenticated(user: User): void {
+  setAuthenticated(): void {
     this.authState$.next({
       isAuthenticated: true,
-      user,
     });
   }
 
   clearAuthentication(): void {
     this.authState$.next({
       isAuthenticated: false,
-      user: null,
+      user: undefined,
     });
   }
 }
