@@ -10,8 +10,8 @@ lexik_jwt_authentication:
         BEARER:
             lifetime: 3600
             domain: "%env(COOKIE_DOMAIN)%"
-            secure: false
-            httpOnly: false
+            secure: true
+            httpOnly: true
             partitioned: false
     api_platform:
         check_path: /auth

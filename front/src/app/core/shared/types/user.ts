@@ -1,7 +1,10 @@
+import { Candidate } from './candidate';
+import { Company } from './company';
+
 export type User = {
   id: string;
   email: string;
   roles: string[];
-  candidate_id?: string;
-  company_id?: string;
+  candidate?: Candidate;
+  company?: Company;
 };

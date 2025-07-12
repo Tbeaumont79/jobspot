@@ -11,7 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    security: 'is_granted("ROLE_CANDIDATE") or is_granted("ROLE_COMPANY")'
+)]
 class Offer
 {
     #[ORM\Id]

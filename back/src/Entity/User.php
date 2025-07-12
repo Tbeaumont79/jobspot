@@ -18,7 +18,7 @@ use App\Controller\MeController;
 )]
 #[Get(
     uriTemplate: '/me',
-    security: 'is_granted("ROLE_CANDIDATE") or is_granted("ROLE_COMPANY")',
+    security: 'is_granted("ROLE_CANDIDATE") or is_granted("ROLE_COMPANY") or is_granted("ROLE_ADMIN")',
     read: false,
     controller: MeController::class,
 )]
