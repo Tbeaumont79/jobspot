@@ -1,15 +1,13 @@
-<p>{{ offer.title }}</p>
-  
 @if (offer) {
-<div class="card w-96 bg-base-100 card-md shadow-sm">
+<div class="card w-[600px] bg-base-100 card-md shadow-sm">
   <div class="card-body">
     <h2 class="card-title">{{ offer.title }}</h2>
     <p>{{ offer.description }}</p>
     <div class="justify-end card-actions">
-      <button class="btn btn-primary">Voir l'offre</button>
-      </div>
+      <button class="btn btn-secondary">Voir l'offre</button>
     </div>
   </div>
+</div>
 } @else {
-  <p>No offer</p>
+<p>No offer</p>
 }
