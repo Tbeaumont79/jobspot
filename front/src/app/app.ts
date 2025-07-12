@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthStateService } from './core/services/auth/auth-state';
+import { AsyncPipe } from '@angular/common';
+import { Navbar } from './components/navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, AsyncPipe, Navbar],
   templateUrl: './app.html',
 })
-export class App {}
+export class App {
+  private authStateService = inject(AuthStateService);
+
+  authState = this.authStateService.authState$;
+}

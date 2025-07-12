@@ -10,9 +10,10 @@ import { AuthState } from '../../shared/types/auth';
 })
 export class AuthStateService {
   private readonly http = inject(HttpClient);
-  private authState$ = new BehaviorSubject<AuthState>({
+  public authState$ = new BehaviorSubject<AuthState>({
     isAuthenticated: false,
     user: null,
+    isLoading: true,
   });
 
   getAuthState(): Observable<User | null> {
@@ -21,12 +22,14 @@ export class AuthStateService {
         this.authState$.next({
           isAuthenticated: true,
           user: user,
+          isLoading: false,
         });
       }),
       catchError((error: HttpErrorResponse) => {
         this.authState$.next({
           isAuthenticated: false,
           user: null,
+          isLoading: false,
         });
         return of(null);
       })
@@ -36,6 +39,7 @@ export class AuthStateService {
     this.authState$.next({
       isAuthenticated: true,
       user: null,
+      isLoading: false,
     });
   }
 }

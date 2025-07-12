@@ -1,1 +1,6 @@
+@if ((authState | async)?.isLoading) {
+<div class="loading-spinner">chargement ...</div>
+} @else {
+<app-navbar></app-navbar>
 <router-outlet></router-outlet>
+}

@@ -6,14 +6,14 @@ import { AuthStateService } from '../services/auth/auth-state';
 export const authGuard: CanActivateFn = (): Observable<boolean> | boolean => {
   const authStateService = inject(AuthStateService);
   const router = inject(Router);
+
   return authStateService.getAuthState().pipe(
     map((user) => {
       if (user) {
         return true;
-      } else {
-        router.navigate(['/login']);
-        return false;
       }
+      router.navigate(['/login']);
+      return false;
     })
   );
 };

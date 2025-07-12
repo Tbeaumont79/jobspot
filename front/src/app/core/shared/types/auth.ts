@@ -13,6 +13,7 @@ export interface AuthResponse {
 export interface AuthState {
   isAuthenticated: boolean;
   user: User | null;
+  isLoading: boolean;
 }
 export interface IAuthStateService {
   login(credentials: LoginCredentials): Observable<AuthResponse>;
