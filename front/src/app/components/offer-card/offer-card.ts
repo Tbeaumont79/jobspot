@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { OfferType } from '../../core/shared/types/offer';
 
 @Component({
   selector: 'app-offer-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   templateUrl: './offer-card.html',
 })
 export class OfferCard {
-
+  @Input() offer!: OfferType;
 }

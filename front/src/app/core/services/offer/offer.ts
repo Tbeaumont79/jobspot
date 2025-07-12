@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { OfferCollection, OfferType } from '../../shared/types/offer';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +10,9 @@ import { environment } from '../../../../environments/environment';
 export class Offer {
   private readonly http = inject(HttpClient);
 
-  getOffers(): Observable<any> {
+  getOffers(): Observable<OfferType[]> {
     return this.http
-      .get<any>(`${environment.apiUrl}/api/offers`)
-      .pipe(tap((offers: any) => offers));
+      .get<OfferCollection>(`${environment.apiUrl}/api/offers`)
+      .pipe(map((collection) => collection.member));
   }
 }
