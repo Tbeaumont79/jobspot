@@ -4,7 +4,9 @@
     <h2 class="card-title">{{ offer.title }}</h2>
     <p>{{ offer.description }}</p>
     <div class="justify-end card-actions">
-      <button class="btn btn-secondary">Voir l'offre</button>
+      <button class="btn btn-secondary" [routerLink]="['/offer-details', offer.id]">
+        Voir l'offre
+      </button>
     </div>
   </div>
 </div>

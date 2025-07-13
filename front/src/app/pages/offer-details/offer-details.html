@@ -1,0 +1,12 @@
+<div class="flex flex-col items-center justify-center ">
+  @if (offer.isLoading()) {
+    <p>Loading...</p>
+  } @else if (offer.error()) {
+    <p>Error</p>
+  } @else {
+    <p>{{ offer.value()?.title }}</p>
+    <p>{{ offer.value()?.description }}</p>
+    <p>{{ offer.value()?.createdAt | date }}</p>
+    <p>{{ offer.value()?.status }}</p>
+  }
+</div>

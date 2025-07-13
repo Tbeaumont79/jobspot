@@ -1,6 +1,9 @@
-<div class="flex w-full flex-col item-center justify-center h-screen">
+<div class="flex w-full flex-col item-center justify-center">
   @for(offer of (offers$ | async); track offer.id) {
-  <app-offer-card [offer]="offer" class="flex flex-col items-center justify-center"></app-offer-card>
+  <app-offer-card
+    [offer]="offer"
+    class="flex flex-col items-center justify-center"
+  ></app-offer-card>
   } @empty {
   <p>No offers</p>
   }
