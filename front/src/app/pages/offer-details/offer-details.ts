@@ -13,5 +13,4 @@ export class OfferDetails {
   private readonly offerService = inject(OfferService);
   private readonly route = inject(ActivatedRoute);
   offer = this.offerService.getOfferById(this.route.snapshot.params['id']);
-  
 }
