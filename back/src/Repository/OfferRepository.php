@@ -29,8 +29,7 @@ class OfferRepository extends ServiceEntityRepository
     //            ->getQuery()
     //            ->getResult()
     //        ;
-    //    }
-
+    //    } 
     //    public function findOneBySomeField($value): ?Offer
     //    {
     //        return $this->createQueryBuilder('o')

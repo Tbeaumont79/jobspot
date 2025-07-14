@@ -12,13 +12,16 @@ use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
 #[ApiResource(
-    security: 'is_granted("ROLE_CANDIDATE") or is_granted("ROLE_COMPANY")'
+    security: 'is_granted("ROLE_CANDIDATE") or is_granted("ROLE_COMPANY")',
+    normalizationContext: ['groups' => ['offer:read']],
+    denormalizationContext: ['groups' => ['offer:write']],
 )]
 class Offer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['offer:read'])]
     private ?int $id = null;
 
     #[Groups(['offer:read'])]
