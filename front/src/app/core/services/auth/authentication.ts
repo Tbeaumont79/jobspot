@@ -15,9 +15,7 @@ export class AuthenticationService {
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(`${environment.apiUrl}/auth`, credentials, {
-        withCredentials: true,
-      })
+      .post<AuthResponse>(`${environment.apiUrl}/auth`, credentials, {})
       .pipe(
         tap(() => {
           this.authStateService.setAuthenticated();
@@ -26,6 +24,8 @@ export class AuthenticationService {
   }
 
   getCurrentUser(): Observable<User | null> {
-    return this.http.get<User | null>(`${environment.apiUrl}/me`);
+    return this.http.get<User | null>(`${environment.apiUrl}/api/me`, {
+      withCredentials: true,
+    });
   }
 }

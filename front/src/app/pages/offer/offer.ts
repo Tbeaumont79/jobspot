@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
 import { Offer as OfferService } from '../../core/services/offer/offer';
 import { OfferCard } from '../../components/offer-card/offer-card';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-offer',

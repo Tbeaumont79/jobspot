@@ -1,13 +1,9 @@
-import {
-  HttpClient,
-  HttpResourceRef,
-  HttpRequest,
-  httpResource,
-} from '@angular/common/http';
-import { inject, Injectable, Signal } from '@angular/core';
+import { HttpClient, httpResource } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { OfferCollection, OfferType } from '../../shared/types/offer';
+import { Company } from '../../shared/types/company';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +23,14 @@ export class Offer {
       () => `${environment.apiUrl}/api/offers/${id}`
     );
     return offer;
+  }
+
+  getCompanyByOfferId(offerId: string): Observable<Company> {
+    return this.http.get<Company>(
+      `${environment.apiUrl}/api/companies/by-offer/${offerId}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
