@@ -25,6 +25,25 @@
         Connexion
       </h2>
 
+      @if (authError) {
+      <div class="alert alert-error mb-4" role="alert">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="stroke-current shrink-0 h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>{{ authError }}</span>
+      </div>
+      }
+
       <div class="form-control w-full">
         <label class="label pb-2" for="email">
           <span class="label-text">Email</span>
@@ -62,8 +81,6 @@
         <label class="label pb-2" for="password">
           <span class="label-text">Mot de passe</span>
           @if (isFieldInvalid('password')) {
-          <span class="label-text-alt text-error">*</span>
-          } @if (isFieldInvalid('password')) {
           <span class="label-text-alt text-error">*</span>
           }
         </label>
@@ -105,13 +122,13 @@
       <button
         type="submit"
         class="btn btn-primary w-full"
-        [disabled]="loginForm.invalid"
-        [class.loading]="false"
+        [disabled]="loginForm.invalid || isLoading"
+        [class.loading]="isLoading"
         aria-describedby="login-title"
       >
-        @if (!false) {
+        @if (!isLoading) {
         <span>Se connecter</span>
-        } @if (false) {
+        } @if (isLoading) {
         <span>Connexion en cours...</span>
         }
       </button>
