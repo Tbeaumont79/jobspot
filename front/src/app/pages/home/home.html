@@ -38,22 +38,36 @@
         <h3 class="text-lg font-semibold text-accent mb-2">
           🎯 Comment ça marche ?
         </h3>
+        @if (user?.roles?.includes('ROLE_CANDIDATE')) {
         <div class="steps steps-vertical lg:steps-horizontal w-full">
           <div class="step step-primary">Créez votre profil</div>
           <div class="step step-primary">Explorez les offres</div>
           <div class="step step-primary">Postulez en 1 clic</div>
         </div>
+        } @if (user?.roles?.includes('ROLE_COMPANY')) {
+        <div class="steps steps-vertical lg:steps-horizontal w-full">
+          <div class="step step-primary">Créez votre profil</div>
+          <div class="step step-primary">Créez une offre</div>
+          <div class="step step-primary">Choisissez votre candidat</div>
+        </div>
+        }
       </div>
 
       <div class="card-actions justify-end">
+        @if (user?.roles?.includes('ROLE_CANDIDATE')) {
         <button class="btn btn-primary" [routerLink]="['/offer']">
           Découvrir les offres
         </button>
+        } @if (user?.roles?.includes('ROLE_COMPANY')) {
+        <button class="btn btn-primary" [routerLink]="['/company-dashboard']">
+          Créer une offre
+        </button>
+        }
       </div>
     </div>
   </div>
 
-  <!-- Card pour les candidats -->
+  @if (user?.roles?.includes('ROLE_CANDIDATE')) {
   <div class="card bg-base-100 shadow-xl border border-base-300">
     <div class="card-body">
       <h2 class="card-title text-accent">👨‍💼 Pour les Candidats</h2>
@@ -84,8 +98,7 @@
       </div>
     </div>
   </div>
-
-  <!-- Card pour les entreprises -->
+  } @if (user?.roles?.includes('ROLE_COMPANY')) {
   <div class="card bg-base-100 shadow-xl border border-base-300">
     <div class="card-body">
       <h2 class="card-title text-secondary">🏢 Pour les Entreprises</h2>
@@ -114,7 +127,7 @@
       </div>
     </div>
   </div>
-
+  }
   <!-- Card secteurs populaires -->
   <div class="card bg-base-100 shadow-xl border border-base-300">
     <div class="card-body">
