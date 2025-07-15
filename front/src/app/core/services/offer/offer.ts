@@ -18,19 +18,16 @@ export class Offer {
   }
 
   getOfferById(id: string) {
-    console.log(`id in the service : ${id}`);
     const offer = httpResource<OfferType>(
       () => `${environment.apiUrl}/api/offers/${id}`
     );
     return offer;
   }
 
-  getCompanyByOfferId(offerId: string): Observable<Company> {
-    return this.http.get<Company>(
-      `${environment.apiUrl}/api/companies/by-offer/${offerId}`,
-      {
-        withCredentials: true,
-      }
+  getCompanyByOfferId(offerId: string) {
+    const company = httpResource<Company>(
+      () => `${environment.apiUrl}/api/companies/by-offer/${offerId}`
     );
+    return company;
   }
 }
